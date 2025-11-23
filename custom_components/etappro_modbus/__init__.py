@@ -210,6 +210,27 @@ class AlfenModbusHub:
         with self._lock:
             self._client.connect()
 
+    def _ensure_connected(self):
+        """Ensure the modbus client is connected, reconnect if necessary.
+        Must be called while holding self._lock."""
+        try:
+            # Check if socket is open (method may vary by pymodbus version)
+            is_open = getattr(self._client, 'is_socket_open', None)
+            if is_open and not is_open():
+                _LOGGER.debug("Modbus connection lost, reconnecting...")
+                try:
+                    self._client.close()
+                except Exception:
+                    pass  # Ignore errors when closing
+                self._client.connect()
+                # Verify reconnection
+                if is_open and not is_open():
+                    raise ConnectionError("Failed to reconnect to modbus device")
+        except AttributeError:
+            # If is_socket_open doesn't exist, just try to connect
+            # The actual read/write will catch connection errors
+            pass
+        
     # @property
     # def has_socket_2(self):
     #     """Return true if a meter is available"""
