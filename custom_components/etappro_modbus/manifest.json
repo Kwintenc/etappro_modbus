@@ -5,8 +5,9 @@
   "config_flow": true,  
   "dependencies": [],  
   "documentation": "https://github.com/Kwintenc/etappro_modbus",
+  "integration_type": "hub",
   "iot_class": "local_polling",
   "issue_tracker": "https://github.com/Kwintenc/etappro_modbus/issues",
-  "requirements": ["pymodbus>=3.11.1"],  
+  "requirements": ["pymodbus>=3.11.4"],  
   "version": "0.0.1"
 }
