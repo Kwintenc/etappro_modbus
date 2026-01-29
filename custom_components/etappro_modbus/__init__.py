@@ -86,6 +86,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     """Register the hub."""
     hass.data[DOMAIN][name] = {"hub": hub}
 
+    # Read device info before setting up platforms so device_info is available
+    hub.connect()
+    await hub.read_modbus_data()
+
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
     return True
 
