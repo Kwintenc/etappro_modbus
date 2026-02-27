@@ -1,12 +1,12 @@
 {
-  "domain": "alfen_modbus",
-  "name": "Alfen Modbus",
-  "codeowners": ["@thastealth"],
+  "domain": "etappro_modbus",
+  "name": "ETAPpro Modbus",
+  "codeowners": ["@kwintenc"],
   "config_flow": true,  
   "dependencies": [],  
-  "documentation": "https://github.com/thastealth/alfen_modbus",
+  "documentation": "https://github.com/Kwintenc/etappro_modbus",
   "iot_class": "local_polling",
-  "issue_tracker": "https://github.com/ThaStealth/alfen_modbus/issues",
+  "issue_tracker": "https://github.com/Kwintenc/etappro_modbus/issues",
   "requirements": ["pymodbus>=3.11.1"],  
-  "version": "0.1.6"
+  "version": "0.0.1"
 }
