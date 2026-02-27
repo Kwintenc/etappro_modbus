@@ -3,8 +3,8 @@ from typing import Optional, Dict, Any
 from .const import (
     SENSOR_TYPES,
     SOCKET1_SENSOR_TYPES,
-    SOCKET2_SENSOR_TYPES,
-    SCN_SENSOR_TYPES,
+    # SOCKET2_SENSOR_TYPES,
+    # SCN_SENSOR_TYPES,
     DOMAIN,
     ATTR_STATUS_DESCRIPTION,
     METER_TYPE,
@@ -53,18 +53,18 @@ async def async_setup_entry(hass, entry, async_add_entities):
         )
         entities.append(sensor)
     
-    if hub.read_scn:
-        for meter_sensor_info in SCN_SENSOR_TYPES.values():
-            sensor = AlfenSensor(
-                hub_name,
-                hub,
-                device_info,
-                meter_sensor_info[0],
-                meter_sensor_info[1],
-                meter_sensor_info[2],
-                meter_sensor_info[3],
-            )
-            entities.append(sensor)
+    # if hub.read_scn:
+    #     for meter_sensor_info in SCN_SENSOR_TYPES.values():
+    #         sensor = AlfenSensor(
+    #             hub_name,
+    #             hub,
+    #             device_info,
+    #             meter_sensor_info[0],
+    #             meter_sensor_info[1],
+    #             meter_sensor_info[2],
+    #             meter_sensor_info[3],
+    #         )
+    #         entities.append(sensor)
  
     for meter_sensor_info in SOCKET1_SENSOR_TYPES.values():
         sensor = AlfenSensor(
@@ -78,18 +78,18 @@ async def async_setup_entry(hass, entry, async_add_entities):
         )
         entities.append(sensor)
         
-    if hub.read_socket_2:
-        for meter_sensor_info in SOCKET2_SENSOR_TYPES.values():
-            sensor = AlfenSensor(
-                hub_name,
-                hub,
-                device_info,
-                meter_sensor_info[0],
-                meter_sensor_info[1],
-                meter_sensor_info[2],
-                meter_sensor_info[3],
-            )
-            entities.append(sensor)
+    # if hub.read_socket_2:
+    #     for meter_sensor_info in SOCKET2_SENSOR_TYPES.values():
+    #         sensor = AlfenSensor(
+    #             hub_name,
+    #             hub,
+    #             device_info,
+    #             meter_sensor_info[0],
+    #             meter_sensor_info[1],
+    #             meter_sensor_info[2],
+    #             meter_sensor_info[3],
+    #         )
+    #         entities.append(sensor)
     async_add_entities(entities)
     return True
 
@@ -102,9 +102,10 @@ class AlfenSensor(SensorEntity):
         self._platform_name = platform_name
         self._hub = hub
         self._key = key
-        if not hub.has_socket_2:
-            if name.startswith("S1 "):
-                name = name.replace("S1 ","")
+        # if not hub.has_socket_2:
+        #     if name.startswith("S1 "):
+        #         name = name.replace("S1 ","")
+        name = name.replace("S1 ","")
         self._name = name
         self._unit_of_measurement = unit
         self._icon = icon

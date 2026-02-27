@@ -44,20 +44,20 @@ async def async_setup_entry(hass, entry, async_add_entities) -> None:
         )
         entities.append(select)
 
-    # If a second socket is available, add the controls
-    if hub.has_socket_2:
-        for select_info in CONTROL_PHASE:
-            select = AlfenSelect(
-                hub_name,
-                hub,
-                device_info,
-                2,
-                select_info[0],
-                select_info[1],
-                select_info[2],
-                select_info[3],
-            )
-            entities.append(select)    
+    # # If a second socket is available, add the controls
+    # if hub.has_socket_2:
+    #     for select_info in CONTROL_PHASE:
+    #         select = AlfenSelect(
+    #             hub_name,
+    #             hub,
+    #             device_info,
+    #             2,
+    #             select_info[0],
+    #             select_info[1],
+    #             select_info[2],
+    #             select_info[3],
+    #         )
+    #         entities.append(select)    
 
     async_add_entities(entities)
     return True

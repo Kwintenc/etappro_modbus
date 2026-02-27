@@ -22,10 +22,10 @@ from .const import (
     DEFAULT_SCAN_INTERVAL,
     DEFAULT_MODBUS_ADDRESS,
     CONF_MODBUS_ADDRESS,
-    CONF_READ_SCN,
-    CONF_READ_SOCKET2,
-    DEFAULT_READ_SCN,
-    DEFAULT_READ_SOCKET2,
+    # CONF_READ_SCN,
+    # CONF_READ_SOCKET2,
+    # DEFAULT_READ_SCN,
+    # DEFAULT_READ_SOCKET2,
     VALID_TIME_S,
     MAX_CURRENT_S,
     CONTROL_PHASE_MODES
@@ -41,8 +41,8 @@ ETAPPRO_MODBUS_SCHEMA = vol.Schema(
         vol.Optional(
             CONF_MODBUS_ADDRESS, default=DEFAULT_MODBUS_ADDRESS
         ): cv.positive_int,
-        vol.Optional(CONF_READ_SCN, default=DEFAULT_READ_SCN): cv.boolean,
-        vol.Optional(CONF_READ_SOCKET2, default=DEFAULT_READ_SOCKET2): cv.boolean,
+        # vol.Optional(CONF_READ_SCN, default=DEFAULT_READ_SCN): cv.boolean,
+        # vol.Optional(CONF_READ_SOCKET2, default=DEFAULT_READ_SOCKET2): cv.boolean,
         vol.Optional(
             CONF_SCAN_INTERVAL, default=DEFAULT_SCAN_INTERVAL
         ): cv.positive_int,
@@ -69,8 +69,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     port = entry.data[CONF_PORT]
     address = entry.data.get(CONF_MODBUS_ADDRESS, 1)
     scan_interval = entry.data[CONF_SCAN_INTERVAL]
-    read_scn = entry.data.get(CONF_READ_SCN, False)
-    read_socket2 = entry.data.get(CONF_READ_SOCKET2, False)
+    # read_scn = entry.data.get(CONF_READ_SCN, False)
+    # read_socket2 = entry.data.get(CONF_READ_SOCKET2, False)
 
     _LOGGER.debug("Setup %s.%s", DOMAIN, name)
 
@@ -80,9 +80,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
         host,
         port,
         address,
-        scan_interval,
-        read_scn,
-        read_socket2
+        scan_interval
+        # read_scn,
+        # read_socket2
     )
     """Register the hub."""
     hass.data[DOMAIN][name] = {"hub": hub}
@@ -133,9 +133,9 @@ class AlfenModbusHub:
         host,
         port,
         address,
-        scan_interval,
-        read_scn=False,
-        read_socket_2=False
+        scan_interval
+        # read_scn=False,
+        # read_socket_2=False
     ):
         """Initialize the Modbus hub."""
         self._hass = hass
@@ -143,8 +143,8 @@ class AlfenModbusHub:
         self._lock = threading.Lock()
         self._name = name
         self._address = address
-        self.read_scn = read_scn
-        self.read_socket_2 = read_socket_2
+        # self.read_scn = read_scn
+        # self.read_socket_2 = read_socket_2
         self._refreshInterval = scan_interval
         self._scan_interval = timedelta(seconds=scan_interval)
         self._unsub_interval_method = None
@@ -212,15 +212,15 @@ class AlfenModbusHub:
         with self._lock:
             self._client.connect()
 
-    @property
-    def has_socket_2(self):
-        """Return true if a meter is available"""
-        return self.read_socket_2
+    # @property
+    # def has_socket_2(self):
+    #     """Return true if a meter is available"""
+    #     return self.read_socket_2
 
-    @property
-    def has_scn(self):
-        """Return true if a battery is available"""
-        return self.read_scn
+    # @property
+    # def has_scn(self):
+    #     """Return true if a battery is available"""
+    #     return self.read_scn
 
     def read_holding_registers(self, unit, address, count):
         """Read holding registers."""
@@ -237,7 +237,7 @@ class AlfenModbusHub:
             )
             
     def refresh_max_current(self):
-        if int(self.data[VALID_TIME_S+"1"]) < self._refreshInterval+10 or (self.has_socket_2 and int(self.data[VALID_TIME_S+"2"]) < self._refreshInterval+10):
+        if int(self.data[VALID_TIME_S+"1"]) < self._refreshInterval+10 # or (self.has_socket_2 and int(self.data[VALID_TIME_S+"2"]) < self._refreshInterval+10):
             for update_value in self._inputs:
                 update_value()
             
@@ -247,9 +247,9 @@ class AlfenModbusHub:
         return (
             self.read_modbus_data_product()
             and self.read_modbus_data_station()
-            and self.read_modbus_data_scn()
+            # and self.read_modbus_data_scn()
             and self.read_modbus_data_socket(1)
-            and self.read_modbus_data_socket(2)            
+            # and self.read_modbus_data_socket(2)            
         )
 
     def decode_string(self, decoder,length):
@@ -272,19 +272,19 @@ class AlfenModbusHub:
         self.data["numberOfSockets"] = self.decode_from_registers(status_data.registers,5,1,self._client.DATATYPE.UINT16)
         return True
         
-    def read_modbus_data_scn(self):
-        if(self.has_scn):
-            status_data = self.read_holding_registers(self._address,1400,32)
-            if status_data.isError():
-                return False
+    # def read_modbus_data_scn(self):
+    #     if(self.has_scn):
+    #         status_data = self.read_holding_registers(self._address,1400,32)
+    #         if status_data.isError():
+    #             return False
 
-            self.data["scnName"] = self.decode_from_registers(status_data.registers,0,4,self._client.DATATYPE.STRING).strip('\x00')
-            self.data["scnSockets"] =  self.decode_from_registers(status_data.registers,4,1,self._client.DATATYPE.UINT16)
-            #todo, Smart charging network registers
-        return True
+    #         self.data["scnName"] = self.decode_from_registers(status_data.registers,0,4,self._client.DATATYPE.STRING).strip('\x00')
+    #         self.data["scnSockets"] =  self.decode_from_registers(status_data.registers,4,1,self._client.DATATYPE.UINT16)
+    #         #todo, Smart charging network registers
+    #     return True
         
     def read_modbus_data_socket(self,socket):
-        if((socket == 1) or (socket == 2 and self.has_socket_2 and self.data["numberOfSockets"] >= 2)):
+        if((socket == 1) # or (socket == 2 and self.has_socket_2 and self.data["numberOfSockets"] >= 2)):
             energy_data = self.read_holding_registers(socket,300,125)
             if energy_data.isError():
                 return False

@@ -12,10 +12,10 @@ from .const import (
     DEFAULT_PORT,
     DEFAULT_MODBUS_ADDRESS,
     CONF_MODBUS_ADDRESS,
-    CONF_READ_SCN,
-    CONF_READ_SOCKET2,
-    DEFAULT_READ_SCN,
-    DEFAULT_READ_SOCKET2,
+    # CONF_READ_SCN,
+    # CONF_READ_SOCKET2,
+    # DEFAULT_READ_SCN,
+    # DEFAULT_READ_SOCKET2,
 )
 from homeassistant.core import HomeAssistant, callback
 
@@ -25,8 +25,8 @@ DATA_SCHEMA = vol.Schema(
         vol.Required(CONF_HOST): str,
         vol.Required(CONF_PORT, default=DEFAULT_PORT): int,
         vol.Optional(CONF_MODBUS_ADDRESS, default=DEFAULT_MODBUS_ADDRESS): int,
-        vol.Optional(CONF_READ_SCN, default=DEFAULT_READ_SCN): bool,
-        vol.Optional(CONF_READ_SOCKET2, default=DEFAULT_READ_SOCKET2): bool,
+        # vol.Optional(CONF_READ_SCN, default=DEFAULT_READ_SCN): bool,
+        # vol.Optional(CONF_READ_SOCKET2, default=DEFAULT_READ_SOCKET2): bool,
         vol.Optional(CONF_SCAN_INTERVAL, default=DEFAULT_SCAN_INTERVAL): int,
     }
 )

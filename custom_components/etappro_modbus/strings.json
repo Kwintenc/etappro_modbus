@@ -2,14 +2,12 @@
   "config": {
     "step": {
       "user": {
-        "title": "Define your Alfen modbus connection",
+        "title": "Define your ETAPpro modbus connection",
         "data": {
-          "host": "The ip-address of your Alfen device",
-          "name": "The prefix to be used for your Alfen sensors",
-          "port": "The TCP port on which to connect to the Alfen",
+          "host": "The ip-address of your ETAPpro device",
+          "name": "The prefix to be used for your ETAPpro sensors",
+          "port": "The TCP port on which to connect to the ETAPpro device",
           "modbus_address": "The modbus address",
-          "read_scn": "Read SCN (Smart Charging Network) registers",
-          "read_socket_2": "Read socket 2 registers",
           "scan_interval": "The polling frequency of the modbus registers in seconds"
         }
       }

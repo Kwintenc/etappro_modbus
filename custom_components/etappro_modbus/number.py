@@ -43,20 +43,20 @@ async def async_setup_entry(hass, entry, async_add_entities) -> None:
         )
         entities.append(number)
         
-    if hub.has_socket_2:
-        for number_info in CONTROL_SLAVE_MAX_CURRENT:
-            number = AlfenNumber(
-                hub_name,
-                hub,
-                device_info,
-                2,
-                number_info[0],
-                number_info[1],
-                number_info[2],
-                number_info[3],
-                number_info[4],
-            )
-            entities.append(number)
+    # if hub.has_socket_2:
+    #     for number_info in CONTROL_SLAVE_MAX_CURRENT:
+    #         number = AlfenNumber(
+    #             hub_name,
+    #             hub,
+    #             device_info,
+    #             2,
+    #             number_info[0],
+    #             number_info[1],
+    #             number_info[2],
+    #             number_info[3],
+    #             number_info[4],
+    #         )
+    #         entities.append(number)
 
     async_add_entities(entities)
     return True

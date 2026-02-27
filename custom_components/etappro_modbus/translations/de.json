@@ -7,9 +7,7 @@
           "host": "Die IP-Adresse des Alfen Wechselrichters",
           "name": "Das Prefix, das für die Alfen Sensoren verwendet werden soll",
           "port": "Der TCP Port des Alfen Wechselrichters (z.B. 502)",
-		  "modbus_address": "Modbus-Adresse",
-          "read_meter_1": "Lese die Stände des Zähler 1 (nur für Modelle mit Zähler)",
-          "read_meter_2": "Lese die Stände des Zähler 2 (nur für Modelle mit Zähler)",
+		      "modbus_address": "Modbus-Adresse",
           "scan_interval": "Das Abfrageintervall der modbus Register in Sekunden"
         }
       }
