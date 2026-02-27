@@ -33,7 +33,7 @@ from .const import (
 
 _LOGGER = logging.getLogger(__name__)
 
-ALFEN_MODBUS_SCHEMA = vol.Schema(
+ETAPPRO_MODBUS_SCHEMA = vol.Schema(
     {
         vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
         vol.Required(CONF_HOST): cv.string,
@@ -50,7 +50,7 @@ ALFEN_MODBUS_SCHEMA = vol.Schema(
 )
 
 CONFIG_SCHEMA = vol.Schema(
-    {DOMAIN: vol.Schema({cv.slug: ALFEN_MODBUS_SCHEMA})}, extra=vol.ALLOW_EXTRA
+    {DOMAIN: vol.Schema({cv.slug: ETAPPRO_MODBUS_SCHEMA})}, extra=vol.ALLOW_EXTRA
 )
 
 PLATFORMS = ["number", "select", "sensor"]

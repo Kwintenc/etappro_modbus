@@ -1,4 +1,4 @@
-DOMAIN = "alfen_modbus"
+DOMAIN = "etappro_modbus"
 DEFAULT_NAME = "alfen"
 DEFAULT_SCAN_INTERVAL = 30
 DEFAULT_PORT = 502

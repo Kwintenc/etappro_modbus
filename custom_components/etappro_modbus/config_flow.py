@@ -43,7 +43,7 @@ def host_valid(host):
 
 
 @callback
-def alfen_modbus_entries(hass: HomeAssistant):
+def etappro_modbus_entries(hass: HomeAssistant):
     """Return the hosts already configured."""
     return set(
         entry.data[CONF_HOST] for entry in hass.config_entries.async_entries(DOMAIN)
@@ -58,7 +58,7 @@ class AlfenModbusConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
     def _host_in_configuration_exists(self, host) -> bool:
         """Return True if host exists in configuration."""
-        if host in alfen_modbus_entries(self.hass):
+        if host in etappro_modbus_entries(self.hass):
             return True
         return False
 
