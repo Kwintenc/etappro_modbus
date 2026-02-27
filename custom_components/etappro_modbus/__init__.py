@@ -237,7 +237,8 @@ class AlfenModbusHub:
             )
             
     def refresh_max_current(self):
-        if int(self.data[VALID_TIME_S+"1"]) < self._refreshInterval+10 # or (self.has_socket_2 and int(self.data[VALID_TIME_S+"2"]) < self._refreshInterval+10):
+        # if int(self.data[VALID_TIME_S+"1"]) < self._refreshInterval+10 or (self.has_socket_2 and int(self.data[VALID_TIME_S+"2"]) < self._refreshInterval+10):
+        if int(self.data[VALID_TIME_S+"1"]) < self._refreshInterval+10:
             for update_value in self._inputs:
                 update_value()
             
@@ -284,7 +285,8 @@ class AlfenModbusHub:
     #     return True
         
     def read_modbus_data_socket(self,socket):
-        if((socket == 1) # or (socket == 2 and self.has_socket_2 and self.data["numberOfSockets"] >= 2)):
+        # if((socket == 1) or (socket == 2 and self.has_socket_2 and self.data["numberOfSockets"] >= 2)):
+        if(socket == 1):
             energy_data = self.read_holding_registers(socket,300,125)
             if energy_data.isError():
                 return False
