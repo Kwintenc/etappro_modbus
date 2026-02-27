@@ -20,5 +20,26 @@
     "abort": {
       "already_configured": "Device is already configured"
     }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "ETAPpro Modbus Options",
+        "description": "Reconfigure your ETAPpro Modbus connection",
+        "data": {
+          "host": "Host",
+          "port": "Port",
+          "scan_interval": "Scan Interval"
+        },
+        "data_description": {
+          "host": "The IP address or hostname of your ETAPpro device",
+          "port": "TCP port (default: 502)",
+          "scan_interval": "Polling interval in seconds"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Cannot connect to the device"
+    }
   }
 }
