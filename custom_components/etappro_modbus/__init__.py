@@ -311,9 +311,9 @@ class AlfenModbusHub:
         return (
             await self.read_modbus_data_product()
             and await self.read_modbus_data_station()
-            and await self.read_modbus_data_scn()
+            # and await self.read_modbus_data_scn()
             and await self.read_modbus_data_socket(1)
-            and await self.read_modbus_data_socket(2)            
+            # and await self.read_modbus_data_socket(2)            
         )
 
     def decode_string(self, decoder,length):
