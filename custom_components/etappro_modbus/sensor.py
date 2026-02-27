@@ -7,8 +7,8 @@ from .const import (
     # SCN_SENSOR_TYPES,
     DOMAIN,
     ATTR_STATUS_DESCRIPTION,
-    METER_TYPE,
-    METER_STATE_MODES,
+    # METER_TYPE,
+    # METER_STATE_MODES,
     AVAILABILITY_MODES,
     BOOLEAN_EXPLAINED,
     CONTROL_PHASE_MODES,
@@ -156,11 +156,11 @@ class AlfenSensor(SensorEntity):
     def state(self):
         """Return the state of the sensor."""
         if self._key in self._hub.data and self._hub.data[self._key] == self._hub.data[self._key]: #check for NaN
-            if self._key in ["socket_1_meterType", "socket_2_meterType"] and self._hub.data[self._key] in METER_TYPE:
-                return METER_TYPE[self._hub.data[self._key]]
-            elif self._key in ["socket_1_meterstate", "socket_2_meterstate"] and self._hub.data[self._key] in METER_STATE_MODES:
-                return METER_STATE_MODES[self._hub.data[self._key]]     
-            elif self._key in ["socket_1_available", "socket_2_available"] and self._hub.data[self._key] in AVAILABILITY_MODES:
+            # if self._key in ["socket_1_meterType", "socket_2_meterType"] and self._hub.data[self._key] in METER_TYPE:
+            #     return METER_TYPE[self._hub.data[self._key]]
+            # elif self._key in ["socket_1_meterstate", "socket_2_meterstate"] and self._hub.data[self._key] in METER_STATE_MODES:
+            #     return METER_STATE_MODES[self._hub.data[self._key]]     
+            if self._key in ["socket_1_available", "socket_2_available"] and self._hub.data[self._key] in AVAILABILITY_MODES:
                 return AVAILABILITY_MODES[self._hub.data[self._key]]   
             elif self._key in ["backofficeConnected","socket_1_setpointAccounted", "socket_2_setpointAccounted","socket_1_carconnected","socket_2_carconnected","socket_1_carcharging","socket_2_carcharging"] and self._hub.data[self._key] in BOOLEAN_EXPLAINED:
                 return BOOLEAN_EXPLAINED[self._hub.data[self._key]]        
